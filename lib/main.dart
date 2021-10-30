@@ -42,16 +42,15 @@ class _ExampleDemoState extends State<ExampleDemo> {
         // unSelectedColor: const Color(0xffffffff),
         // curvedButtonSelectedColor: const Color(0xff69ddfa),
         curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
-        // ignore: avoid_print
         currentIndex: (index) => setState(() => initIndex = index),
-        screenList: const [
+        screenItems: const [
           ExampleScreenOne(title: 'Home', color: Colors.red),
           ExampleScreenOne(title: 'Map', color: Colors.orange),
           ExampleScreenOne(title: 'Notification', color: Colors.yellow),
           ExampleScreenOne(title: 'Store', color: Colors.green),
           ExampleScreenOne(title: 'Profile', color: Colors.cyanAccent),
         ],
-        buttonWidgetList: const [
+        buttonItems: const [
           Icon(Icons.home),
           Icon(Icons.my_location),
           Icon(Icons.notifications_active),

@@ -4,7 +4,7 @@ import 'painter_bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class CurvedBottomNavigationAN extends StatefulWidget {
-  final List<Widget> screenList, buttonWidgetList;
+  final List<Widget> screenItems, buttonItems;
   final Color selectedColor,
       unSelectedColor,
       curvedButtonUnSelectedColor,
@@ -16,9 +16,9 @@ class CurvedBottomNavigationAN extends StatefulWidget {
 
   CurvedBottomNavigationAN({
     Key? key,
-    required this.screenList,
+    required this.screenItems,
     required this.currentIndex,
-    required this.buttonWidgetList,
+    required this.buttonItems,
     this.selectedColor = Colors.red,
     this.unSelectedColor = Colors.black26,
     this.backgroundColor = Colors.white,
@@ -37,7 +37,7 @@ class CurvedBottomNavigationAN extends StatefulWidget {
 
 class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   Widget selectedScreen(int currentIndex) {
-    final screen = Scaffold(body: widget.screenList.elementAt(currentIndex));
+    final screen = Scaffold(body: widget.screenItems.elementAt(currentIndex));
     return screen;
   }
 
@@ -58,14 +58,14 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   @override
   void initState() {
     super.initState();
-    if (widget.screenList.length.isOdd && widget.screenList.length == 3 ||
-        widget.screenList.length == 5) {
-    } else if (widget.screenList.length != widget.buttonWidgetList.length) {
+    if (widget.screenItems.length.isOdd && widget.screenItems.length == 3 ||
+        widget.screenItems.length == 5) {
+    } else if (widget.screenItems.length != widget.buttonItems.length) {
       throw Exception('screenList.length must equal buttonWidgetList.length');
-    } else if (widget.screenList.length != 3 || widget.screenList.length != 5) {
+    } else if (widget.screenItems.length != 3 || widget.screenItems.length != 5) {
       throw Exception('screenList.length must equal 3 or 5');
-    } else if (widget.buttonWidgetList.length != 3 ||
-        widget.buttonWidgetList.length != 5) {
+    } else if (widget.buttonItems.length != 3 ||
+        widget.buttonItems.length != 5) {
       throw Exception('buttonWidgetList.length must 3 or equal 5');
     } else {
       throw Exception('screenList.length must be 3 or 5 ');
@@ -74,7 +74,7 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
 
   @override
   Widget build(BuildContext context) {
-    final lengthIsFive = widget.screenList.length == 5 ? true : false;
+    final lengthIsFive = widget.screenItems.length == 5 ? true : false;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
@@ -110,7 +110,7 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                         borderRadius: BorderRadius.circular(28),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: widget.buttonWidgetList
+                          child: widget.buttonItems
                               .elementAt(lengthIsFive ? 2 : 1),
                         ),
                       ),
@@ -124,14 +124,14 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                       children: [
                         buttonOfBottomNavigation(
                           onTap: () => changeIndex(0),
-                          icon: widget.buttonWidgetList.elementAt(0),
+                          icon: widget.buttonItems.elementAt(0),
                           color: changeColorOfSelectedIndex(0),
                         ),
                         Visibility(
                           visible: lengthIsFive,
                           child: buttonOfBottomNavigation(
                             onTap: () => changeIndex(lengthIsFive ? 1 : 0),
-                            icon: widget.buttonWidgetList
+                            icon: widget.buttonItems
                                 .elementAt(lengthIsFive ? 1 : 0),
                             color: changeColorOfSelectedIndex(
                                 lengthIsFive ? 1 : 0),
@@ -142,7 +142,7 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                           visible: lengthIsFive,
                           child: buttonOfBottomNavigation(
                             onTap: () => changeIndex(lengthIsFive ? 3 : 0),
-                            icon: widget.buttonWidgetList
+                            icon: widget.buttonItems
                                 .elementAt(lengthIsFive ? 3 : 0),
                             color: changeColorOfSelectedIndex(
                                 lengthIsFive ? 3 : 0),
@@ -150,7 +150,7 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                         ),
                         buttonOfBottomNavigation(
                           onTap: () => changeIndex(lengthIsFive ? 4 : 2),
-                          icon: widget.buttonWidgetList
+                          icon: widget.buttonItems
                               .elementAt(lengthIsFive ? 4 : 2),
                           color:
                               changeColorOfSelectedIndex(lengthIsFive ? 4 : 2),
