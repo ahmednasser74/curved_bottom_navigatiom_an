@@ -3,39 +3,39 @@ import 'package:flutter/material.dart';
 import 'painter_bottom_navigation.dart';
 
 // ignore: must_be_immutable
-class CurvedBottomNavigation extends StatefulWidget {
+class CurvedBottomNavigationAN extends StatefulWidget {
   final List<Widget> screenList, buttonWidgetList;
   final Color selectedColor,
       unSelectedColor,
       curvedButtonUnSelectedColor,
       curvedButtonSelectedColor,
-      color;
+      backgroundColor;
   final void Function(int index) currentIndex;
-  final double buttonBorderRadius, buttonWidth, buttonHeight, elevation;
+  final double buttonRadius, buttonWidth, buttonHeight, elevation;
   int initIndex;
 
-  CurvedBottomNavigation({
+  CurvedBottomNavigationAN({
     Key? key,
     required this.screenList,
     required this.currentIndex,
     required this.buttonWidgetList,
     this.selectedColor = Colors.red,
     this.unSelectedColor = Colors.black26,
-    this.color = Colors.white,
+    this.backgroundColor = Colors.white,
     this.initIndex = 0,
     this.curvedButtonUnSelectedColor = Colors.white,
     this.curvedButtonSelectedColor = Colors.red,
-    this.buttonBorderRadius = 10,
+    this.buttonRadius = 10,
     this.buttonWidth = 50,
     this.buttonHeight = 50,
     this.elevation = 0,
   }) : super(key: key);
 
   @override
-  State<CurvedBottomNavigation> createState() => _CurvedBottomNavigationState();
+  State<CurvedBottomNavigationAN> createState() => _CurvedBottomNavigationANState();
 }
 
-class _CurvedBottomNavigationState extends State<CurvedBottomNavigation> {
+class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   Widget selectedScreen(int currentIndex) {
     final screen = Scaffold(body: widget.screenList.elementAt(currentIndex));
     return screen;
@@ -91,7 +91,7 @@ class _CurvedBottomNavigationState extends State<CurvedBottomNavigation> {
                   CustomPaint(
                     size: Size(size.width, 120),
                     painter: PainterCenterBottomNavigation(
-                      color: widget.color,
+                      color: widget.backgroundColor,
                       elevation: widget.elevation,
                     ),
                   ),
@@ -180,7 +180,7 @@ class _CurvedBottomNavigationState extends State<CurvedBottomNavigation> {
         width: widget.buttonWidth,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(widget.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(widget.buttonRadius),
         ),
         child: icon,
       ),

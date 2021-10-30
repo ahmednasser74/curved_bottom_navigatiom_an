@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'curved_bottom_navigation.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.grey),
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
       home: const ExampleDemo(),
     );
   }
@@ -32,14 +33,14 @@ class _ExampleDemoState extends State<ExampleDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CurvedBottomNavigation(
+      body: CurvedBottomNavigationAN(
         initIndex: initIndex,
-        color: Colors.white,
+        backgroundColor: Colors.white,
         elevation: 4,
-        buttonBorderRadius: 30,
+        buttonRadius: 20,
         selectedColor: const Color(0xfff63939),
-        unSelectedColor: const Color(0xfffa9d9d),
-        curvedButtonSelectedColor: const Color(0xff6969fa),
+        // unSelectedColor: const Color(0xffffffff),
+        // curvedButtonSelectedColor: const Color(0xff69ddfa),
         curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
         // ignore: avoid_print
         currentIndex: (index) => setState(() => initIndex = index),
@@ -51,18 +52,18 @@ class _ExampleDemoState extends State<ExampleDemo> {
           ExampleScreenOne(title: 'Profile', color: Colors.cyanAccent),
         ],
         buttonWidgetList: const [
-          Icon(Icons.home, color: Colors.black),
-          Icon(Icons.my_location, color: Colors.black),
-          Icon(Icons.notifications_active, color: Colors.black),
-          Icon(Icons.shop, color: Colors.black),
-          Icon(Icons.person, color: Colors.black),
+          Icon(Icons.home),
+          Icon(Icons.my_location),
+          Icon(Icons.notifications_active),
+          Icon(Icons.shop),
+          Icon(Icons.person),
         ],
       ),
     );
   }
 }
 
-class ExampleScreenOne extends StatefulWidget {
+class ExampleScreenOne extends StatelessWidget {
   final String title;
   final Color color;
 
@@ -70,28 +71,16 @@ class ExampleScreenOne extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ExampleScreenOne> createState() => _ExampleScreenOneState();
-}
-
-class _ExampleScreenOneState extends State<ExampleScreenOne> {
-  int counter = 0;
-
-  void increment() {
-    counter++;
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      color: widget.color,
+      color: color,
       width: double.infinity,
       height: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(widget.title + ' Screen', style: const TextStyle(fontSize: 30)),
+          Text(title + ' Screen', style: const TextStyle(fontSize: 30)),
         ],
       ),
     );
