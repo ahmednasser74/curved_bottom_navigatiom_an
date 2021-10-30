@@ -11,7 +11,7 @@ class CurvedBottomNavigationAN extends StatefulWidget {
       curvedButtonSelectedColor,
       backgroundColor;
   final void Function(int index) currentIndex;
-  final double buttonRadius, buttonWidth, buttonHeight, elevation;
+  final double buttonRadius, buttonWidth, buttonHeight, elevation, heightFactor;
   int initIndex;
 
   CurvedBottomNavigationAN({
@@ -29,13 +29,17 @@ class CurvedBottomNavigationAN extends StatefulWidget {
     this.buttonWidth = 50,
     this.buttonHeight = 50,
     this.elevation = 0,
+    this.heightFactor = .7,
   }) : super(key: key);
 
   @override
-  State<CurvedBottomNavigationAN> createState() => _CurvedBottomNavigationANState();
+  State<CurvedBottomNavigationAN> createState() =>
+      _CurvedBottomNavigationANState();
 }
 
 class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
+  late int currentIndex;
+
   Widget selectedScreen(int currentIndex) {
     final screen = Scaffold(body: widget.screenItems.elementAt(currentIndex));
     return screen;
@@ -43,12 +47,13 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
 
   void changeIndex(int index) {
     widget.initIndex = index;
+    currentIndex = index;
     widget.currentIndex(widget.initIndex);
     setState(() {});
   }
 
   Color changeColorOfSelectedIndex(int index) {
-    if (widget.initIndex == index) {
+    if (currentIndex == index) {
       return widget.selectedColor;
     } else {
       return widget.unSelectedColor;
@@ -58,11 +63,13 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.initIndex;
     if (widget.screenItems.length.isOdd && widget.screenItems.length == 3 ||
         widget.screenItems.length == 5) {
     } else if (widget.screenItems.length != widget.buttonItems.length) {
       throw Exception('screenList.length must equal buttonWidgetList.length');
-    } else if (widget.screenItems.length != 3 || widget.screenItems.length != 5) {
+    } else if (widget.screenItems.length != 3 ||
+        widget.screenItems.length != 5) {
       throw Exception('screenList.length must equal 3 or 5');
     } else if (widget.buttonItems.length != 3 ||
         widget.buttonItems.length != 5) {
@@ -75,14 +82,13 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   @override
   Widget build(BuildContext context) {
     final lengthIsFive = widget.screenItems.length == 5 ? true : false;
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
-          selectedScreen(widget.initIndex),
+          selectedScreen(currentIndex),
           Positioned(
             bottom: 0,
-            left: 0,
             child: SizedBox(
               width: size.width,
               height: size.height * .10,
@@ -96,16 +102,29 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                     ),
                   ),
                   Center(
-                    heightFactor: .8,
+                    heightFactor: widget.heightFactor,
                     child: FloatingActionButton(
                       backgroundColor: lengthIsFive
-                          ? widget.initIndex == 2
+                          ? currentIndex == 2
                               ? widget.curvedButtonSelectedColor
                               : widget.curvedButtonUnSelectedColor
-                          : widget.initIndex == 1
+                          : currentIndex == 1
                               ? widget.curvedButtonSelectedColor
                               : widget.curvedButtonUnSelectedColor,
-                      onPressed: () => changeIndex(lengthIsFive ? 2 : 1),
+                      // onPressed: () => changeIndex(lengthIsFive ? 2 : 1),
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          backgroundColor: Colors.black12,
+                          child: Container(
+                            height: size.height * .60,
+                            width: size.width,
+                            alignment: Alignment.center,
+                            color: Colors.green,
+                            child: const Text('hey'),
+                          ),
+                        ),
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(28),
                         child: Padding(

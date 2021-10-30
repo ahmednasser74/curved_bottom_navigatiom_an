@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//TODO: make curved button applicable for bottom sheet and dialogs not only
+//  as screen and make curved button customize from user
 
 class ExampleDemo extends StatefulWidget {
   const ExampleDemo({Key? key}) : super(key: key);
@@ -27,14 +29,13 @@ class ExampleDemo extends StatefulWidget {
 }
 
 class _ExampleDemoState extends State<ExampleDemo> {
-  int x = 0;
   int initIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CurvedBottomNavigationAN(
-        initIndex: initIndex,
+        initIndex: 0,
         backgroundColor: Colors.white,
         elevation: 4,
         buttonRadius: 20,
@@ -42,13 +43,13 @@ class _ExampleDemoState extends State<ExampleDemo> {
         // unSelectedColor: const Color(0xffffffff),
         // curvedButtonSelectedColor: const Color(0xff69ddfa),
         curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
-        currentIndex: (index) => setState(() => initIndex = index),
+        currentIndex: (index) {},
         screenItems: const [
-          ExampleScreenOne(title: 'Home', color: Colors.red),
-          ExampleScreenOne(title: 'Map', color: Colors.orange),
-          ExampleScreenOne(title: 'Notification', color: Colors.yellow),
-          ExampleScreenOne(title: 'Store', color: Colors.green),
-          ExampleScreenOne(title: 'Profile', color: Colors.cyanAccent),
+          ScreenOne(title: 'Home', color: Colors.red),
+          ScreenOne(title: 'Map', color: Colors.orange),
+          ScreenOne(title: 'Notification', color: Colors.yellow),
+          ScreenOne(title: 'Store', color: Colors.green),
+          ScreenOne(title: 'Profile', color: Colors.cyanAccent),
         ],
         buttonItems: const [
           Icon(Icons.home),
@@ -62,11 +63,11 @@ class _ExampleDemoState extends State<ExampleDemo> {
   }
 }
 
-class ExampleScreenOne extends StatelessWidget {
+class ScreenOne extends StatelessWidget {
   final String title;
   final Color color;
 
-  const ExampleScreenOne({Key? key, required this.title, required this.color})
+  const ScreenOne({Key? key, required this.title, required this.color})
       : super(key: key);
 
   @override
@@ -74,14 +75,10 @@ class ExampleScreenOne extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       color: color,
+      alignment: Alignment.center,
       width: double.infinity,
       height: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(title + ' Screen', style: const TextStyle(fontSize: 30)),
-        ],
-      ),
+      child: Text(title + ' Screen', style: const TextStyle(fontSize: 30)),
     );
   }
 }
