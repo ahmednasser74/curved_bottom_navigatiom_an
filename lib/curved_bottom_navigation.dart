@@ -6,9 +6,12 @@ import 'painter_bottom_navigation.dart';
 class CurvedBottomNavigationAN extends StatefulWidget {
   final List<Widget> screenItems, buttonItems;
   final void Function(int index) currentIndex;
+  final VoidCallback? onTapCurvedButton;
   final double buttonRadius, buttonWidth, buttonHeight, elevation, heightFactor;
   int initIndex;
+  final double? bottomNavHeight, curvedButtonHeight;
   final BottomNavStyle bottomNavStyle;
+  final BoxDecoration? curvedButtonDecoration;
   final Color selectedColor,
       unSelectedColor,
       curvedButtonUnSelectedColor,
@@ -31,7 +34,11 @@ class CurvedBottomNavigationAN extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.curvedButtonUnSelectedColor = Colors.white,
     this.curvedButtonSelectedColor = Colors.red,
-    this.bottomNavStyle = BottomNavStyle.curvedBottomNavCenter,
+    this.bottomNavStyle = BottomNavStyle.styleCenter,
+    this.bottomNavHeight,
+    this.curvedButtonDecoration,
+    this.onTapCurvedButton,
+    this.curvedButtonHeight,
   }) : super(key: key);
 
   @override
@@ -40,26 +47,25 @@ class CurvedBottomNavigationAN extends StatefulWidget {
 }
 
 class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
-  late int currentIndex;
+  late int _currentIndex;
 
-  Widget selectedScreen(int currentIndex) {
+  Widget _selectedScreen(int currentIndex) {
     final screen = Scaffold(body: widget.screenItems.elementAt(currentIndex));
     return screen;
   }
 
-  void changeIndex(int index) {
+  void _changeIndex(int index) {
     widget.initIndex = index;
-    currentIndex = index;
+    _currentIndex = index;
     widget.currentIndex(widget.initIndex);
     setState(() {});
   }
 
-
   @override
   void initState() {
     super.initState();
-    currentIndex = widget.initIndex;
-    exceptionHandler(
+    _currentIndex = widget.initIndex;
+    _exceptionHandler(
       screenItems: widget.screenItems,
       buttonItems: widget.buttonItems,
     );
@@ -68,7 +74,7 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
   @override
   void didUpdateWidget(covariant CurvedBottomNavigationAN oldWidget) {
     super.didUpdateWidget(oldWidget);
-    exceptionHandler(
+    _exceptionHandler(
       screenItems: widget.screenItems,
       buttonItems: widget.buttonItems,
     );
@@ -81,12 +87,12 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
     return Scaffold(
       body: Stack(
         children: [
-          selectedScreen(currentIndex),
+          _selectedScreen(_currentIndex),
           Positioned(
             bottom: 0,
             child: SizedBox(
               width: size.width,
-              height: size.height * .10,
+              height: widget.bottomNavHeight ?? size.height * .10,
               child: Stack(
                 children: [
                   CustomPaint(
@@ -97,21 +103,23 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                       bottomNavStyle: widget.bottomNavStyle,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      heightFactor: widget.heightFactor,
-                      child: FloatingActionButton(
-                        backgroundColor: curvedButtonColor(),
-                        onPressed: () => changeIndex(lengthIsFive ? 2 : 1),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(28),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: widget.buttonItems
-                                .elementAt(lengthIsFive ? 2 : 1),
-                          ),
+                  Center(
+                    heightFactor: widget.heightFactor,
+                    child: InkWell(
+                      onTap: () {
+                        _changeIndex(lengthIsFive ? 2 : 1);
+                        widget.onTapCurvedButton!();
+                      },
+                      child: Container(
+                        width: widget.curvedButtonHeight ?? size.width * .15,
+                        decoration: widget.curvedButtonDecoration ??
+                            BoxDecoration(
+                              color: _curvedButtonColor(),
+                              shape: BoxShape.circle,
+                            ),
+                        child: Center(
+                          child: widget.buttonItems
+                              .elementAt(lengthIsFive ? 2 : 1),
                         ),
                       ),
                     ),
@@ -122,22 +130,18 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if (widget.bottomNavStyle ==
-                                BottomNavStyle.curvedBottomNavCenter ||
-                            widget.bottomNavStyle ==
-                                BottomNavStyle.curvedBottomNavCenterCurve)
-                          _buttonOfBottomNavigation(
-                            onTap: () => changeIndex(0),
-                            icon: widget.buttonItems.elementAt(0),
-                            color: changeColorOfSelectedIndex(0),
-                          ),
+                        _buttonOfBottomNavigation(
+                          onTap: () => _changeIndex(0),
+                          icon: widget.buttonItems.elementAt(0),
+                          color: _changeColorOfSelectedIndex(0),
+                        ),
                         Visibility(
                           visible: lengthIsFive,
                           child: _buttonOfBottomNavigation(
-                            onTap: () => changeIndex(lengthIsFive ? 1 : 0),
+                            onTap: () => _changeIndex(lengthIsFive ? 1 : 0),
                             icon: widget.buttonItems
                                 .elementAt(lengthIsFive ? 1 : 0),
-                            color: changeColorOfSelectedIndex(
+                            color: _changeColorOfSelectedIndex(
                                 lengthIsFive ? 1 : 0),
                           ),
                         ),
@@ -145,20 +149,20 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                         Visibility(
                           visible: lengthIsFive,
                           child: _buttonOfBottomNavigation(
-                            onTap: () => changeIndex(lengthIsFive ? 3 : 0),
+                            onTap: () => _changeIndex(lengthIsFive ? 3 : 0),
                             icon: widget.buttonItems
                                 .elementAt(lengthIsFive ? 3 : 0),
-                            color: changeColorOfSelectedIndex(
+                            color: _changeColorOfSelectedIndex(
                               lengthIsFive ? 3 : 0,
                             ),
                           ),
                         ),
                         _buttonOfBottomNavigation(
-                          onTap: () => changeIndex(lengthIsFive ? 4 : 2),
+                          onTap: () => _changeIndex(lengthIsFive ? 4 : 2),
                           icon: widget.buttonItems
                               .elementAt(lengthIsFive ? 4 : 2),
                           color:
-                              changeColorOfSelectedIndex(lengthIsFive ? 4 : 2),
+                              _changeColorOfSelectedIndex(lengthIsFive ? 4 : 2),
                         ),
                       ],
                     ),
@@ -192,31 +196,32 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
     );
   }
 
-  Color curvedButtonColor() {
+  Color _curvedButtonColor() {
     final lengthIsFive = widget.screenItems.length == 5 ? true : false;
     if (lengthIsFive) {
-      if (currentIndex == 2) {
+      if (_currentIndex == 2) {
         return widget.curvedButtonSelectedColor;
       } else {
         return widget.curvedButtonUnSelectedColor;
       }
     } else {
-      if (currentIndex == 1) {
+      if (_currentIndex == 1) {
         return widget.curvedButtonUnSelectedColor;
       } else {
         return widget.curvedButtonUnSelectedColor;
       }
     }
   }
-  Color changeColorOfSelectedIndex(int index) {
-    if (currentIndex == index) {
+
+  Color _changeColorOfSelectedIndex(int index) {
+    if (_currentIndex == index) {
       return widget.selectedColor;
     } else {
       return widget.unSelectedColor;
     }
   }
 
-  void exceptionHandler({
+  void _exceptionHandler({
     required List<Widget> screenItems,
     required List<Widget> buttonItems,
   }) {

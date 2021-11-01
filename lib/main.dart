@@ -1,4 +1,3 @@
-import 'package:bottom_navigation/painter_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'curved_bottom_navigation.dart';
 import 'enums.dart';
@@ -23,14 +22,9 @@ class MyApp extends StatelessWidget {
 
 //TODO: make curved button applicable for bottom sheet and dialogs not only as screen and make curved button customize from user
 //TODO: documentation for package
-class Example extends StatefulWidget {
+class Example extends StatelessWidget {
   const Example({Key? key}) : super(key: key);
 
-  @override
-  State<Example> createState() => _ExampleState();
-}
-
-class _ExampleState extends State<Example> {
   @override
   Widget build(BuildContext context) {
     return CurvedBottomNavigationAN(
@@ -38,13 +32,13 @@ class _ExampleState extends State<Example> {
       backgroundColor: Colors.white,
       elevation: 4,
       buttonRadius: 20,
-      heightFactor: .8,
+      heightFactor: .6,
       selectedColor: const Color(0xffffcdd3),
       // unSelectedColor: const Color(0xffffffff),
       unSelectedColor: Colors.transparent,
       // curvedButtonSelectedColor: const Color(0xff69ddfa),
       curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
-      bottomNavStyle: BottomNavStyle.curvedBottomNavCenterCurve,
+      bottomNavStyle: BottomNavStyle.styleCenter,
       currentIndex: (index) {},
       screenItems: const [
         ScreenExample(title: 'Home', color: Colors.red),

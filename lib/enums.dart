@@ -1,6 +1,6 @@
 enum BottomNavStyle {
-  curvedBottomNavCenter,
-  curvedBottomNavCenterCurve
+  styleCenter,
+  styleCenterCurvy
   // curvedBottomNavRight,
   // curvedBottomNavLeft,
 }
