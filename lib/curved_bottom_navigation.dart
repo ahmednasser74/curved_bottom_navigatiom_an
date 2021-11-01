@@ -108,7 +108,9 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                     child: InkWell(
                       onTap: () {
                         _changeIndex(lengthIsFive ? 2 : 1);
-                        widget.onTapCurvedButton!();
+                        widget.onTapCurvedButton == null
+                            ? () {}
+                            : widget.onTapCurvedButton!();
                       },
                       child: Container(
                         width: widget.curvedButtonHeight ?? size.width * .15,
