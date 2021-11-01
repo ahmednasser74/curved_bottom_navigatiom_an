@@ -1,5 +1,7 @@
+import 'package:bottom_navigation/painter_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'curved_bottom_navigation.dart';
+import 'enums.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,50 +16,50 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      home: const ExampleDemo(),
+      home: const Example(),
     );
   }
 }
-//TODO: make curved button applicable for bottom sheet and dialogs not only
-//  as screen and make curved button customize from user
 
-class ExampleDemo extends StatefulWidget {
-  const ExampleDemo({Key? key}) : super(key: key);
+//TODO: make curved button applicable for bottom sheet and dialogs not only as screen and make curved button customize from user
+//TODO: documentation for package
+class Example extends StatefulWidget {
+  const Example({Key? key}) : super(key: key);
 
   @override
-  State<ExampleDemo> createState() => _ExampleDemoState();
+  State<Example> createState() => _ExampleState();
 }
 
-class _ExampleDemoState extends State<ExampleDemo> {
-
+class _ExampleState extends State<Example> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CurvedBottomNavigationAN(
-        initIndex: 2,
-        backgroundColor: Colors.white,
-        elevation: 4,
-        buttonRadius: 20,
-        selectedColor: const Color(0xfff63939),
-        unSelectedColor: const Color(0xffffffff),
-        // curvedButtonSelectedColor: const Color(0xff69ddfa),
-        curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
-        currentIndex: (index) {},
-        screenItems: const [
-          ScreenExample(title: 'Home', color: Colors.red),
-          ScreenExample(title: 'Map', color: Colors.orange),
-          ScreenExample(title: 'Notification', color: Colors.yellow),
-          ScreenExample(title: 'Store', color: Colors.green),
-          ScreenExample(title: 'Profile', color: Colors.cyanAccent),
-        ],
-        buttonItems: const [
-          Icon(Icons.home),
-          Icon(Icons.my_location),
-          Icon(Icons.notifications_active),
-          Icon(Icons.shop),
-          Icon(Icons.person),
-        ],
-      ),
+    return CurvedBottomNavigationAN(
+      initIndex: 0,
+      backgroundColor: Colors.white,
+      elevation: 4,
+      buttonRadius: 20,
+      heightFactor: .8,
+      selectedColor: const Color(0xffffcdd3),
+      // unSelectedColor: const Color(0xffffffff),
+      unSelectedColor: Colors.transparent,
+      // curvedButtonSelectedColor: const Color(0xff69ddfa),
+      curvedButtonUnSelectedColor: const Color(0xffaaa8a8),
+      bottomNavStyle: BottomNavStyle.curvedBottomNavCenterCurve,
+      currentIndex: (index) {},
+      screenItems: const [
+        ScreenExample(title: 'Home', color: Colors.red),
+        ScreenExample(title: 'Map', color: Colors.orange),
+        ScreenExample(title: 'Notification', color: Colors.yellow),
+        ScreenExample(title: 'Store', color: Colors.green),
+        ScreenExample(title: 'Profile', color: Colors.cyanAccent),
+      ],
+      buttonItems: const [
+        Icon(Icons.home),
+        Icon(Icons.my_location),
+        Icon(Icons.notifications_active),
+        Icon(Icons.shop),
+        Icon(Icons.person),
+      ],
     );
   }
 }
