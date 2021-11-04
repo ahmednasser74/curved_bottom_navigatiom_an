@@ -34,7 +34,7 @@ class CurvedBottomNavigationAN extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.curvedButtonUnSelectedColor = Colors.white,
     this.curvedButtonSelectedColor = Colors.red,
-    this.bottomNavStyle = BottomNavStyle.styleCenter,
+    this.bottomNavStyle = BottomNavStyle.center,
     this.bottomNavHeight,
     this.curvedButtonDecoration,
     this.onTapCurvedButton,
@@ -114,7 +114,8 @@ class _CurvedBottomNavigationANState extends State<CurvedBottomNavigationAN> {
                       },
                       child: Container(
                         width: widget.curvedButtonHeight ?? size.width * .15,
-                        decoration: widget.curvedButtonDecoration ??
+                        decoration: widget.curvedButtonDecoration
+                                ?.copyWith(color: _curvedButtonColor()) ??
                             BoxDecoration(
                               color: _curvedButtonColor(),
                               shape: BoxShape.circle,

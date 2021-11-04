@@ -40,7 +40,7 @@ Path generalDrawnPath({
   required Size size,
 }) {
   switch (bottomNavStyle) {
-    case BottomNavStyle.styleCenter:
+    case BottomNavStyle.center:
       path.quadraticBezierTo(size.width * .20, 0, size.width * .35, 0);
       path.quadraticBezierTo(size.width * .40, 0, size.width * .40, 20);
       path.arcToPoint(Offset(size.width * .60, 20),
@@ -77,7 +77,7 @@ Path generalDrawnPath({
     //   path.lineTo(0, size.height);
     //   path.close();
     //   return path;
-    case BottomNavStyle.styleCenterCurvy:
+    case BottomNavStyle.centerCurvy:
       path.moveTo(0,size.height);
       path.quadraticBezierTo(0,size.height*0.4011250,0,size.height*0.2015000);
       path.quadraticBezierTo(size.width*0.2040625,size.height*0.0326200,size.width*0.3636875,size.height*0.0017000);
